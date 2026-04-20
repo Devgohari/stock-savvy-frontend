@@ -17,7 +17,13 @@ export const useLogin = () => {
     },
     onSuccess: ({ token, user }) => {
       setAuth(
-        { id: user.id, email: user.email, riskPercentage: user.riskPercentage, telegramChatId: user.telegramChatId },
+        {
+          id: user.id,
+          email: user.email,
+          riskPercentage: user.riskPercentage,
+          tradingMode: user.tradingMode,
+          telegramChatId: user.telegramChatId,
+        },
         token
       );
       navigate("/dashboard");
@@ -38,7 +44,13 @@ export const useRegister = () => {
     },
     onSuccess: ({ token, user }) => {
       setAuth(
-        { id: user.id, email: user.email, riskPercentage: user.riskPercentage, telegramChatId: user.telegramChatId },
+        {
+          id: user.id,
+          email: user.email,
+          riskPercentage: user.riskPercentage,
+          tradingMode: user.tradingMode,
+          telegramChatId: user.telegramChatId,
+        },
         token
       );
       navigate("/dashboard");

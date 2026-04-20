@@ -1,9 +1,12 @@
 import api from "@/lib/axios";
 
+export type TradingMode = "SWING" | "POSITIONAL";
+
 export interface RegisterPayload {
   email: string;
   password: string;
   riskPercentage?: number;
+  tradingMode?: TradingMode;
 }
 
 export interface LoginPayload {
@@ -20,6 +23,7 @@ export interface UserProfile {
   email: string;
   telegramChatId: string | null;
   riskPercentage: number;
+  tradingMode: TradingMode;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
@@ -43,6 +47,7 @@ export const getMe = async (): Promise<UserProfile> => {
 export const updateMe = async (payload: {
   telegramChatId?: string;
   riskPercentage?: number;
+  tradingMode?: TradingMode;
 }): Promise<UserProfile> => {
   const { data } = await api.patch<UserProfile>("/users/me", payload);
   return data;

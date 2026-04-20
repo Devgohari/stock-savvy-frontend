@@ -1,10 +1,13 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+export type TradingMode = "SWING" | "POSITIONAL";
+
 export interface AuthUser {
   id: string;
   email: string;
   riskPercentage: number;
+  tradingMode: TradingMode;
   telegramChatId: string | null;
 }
 

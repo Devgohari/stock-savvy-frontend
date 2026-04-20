@@ -2,6 +2,7 @@ import { Eye } from "lucide-react";
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { WatchlistRow } from "@/components/watchlist/WatchlistRow";
+import { AddStockDialog } from "@/components/watchlist/AddStockDialog";
 import { useWatchlist } from "@/hooks/useWatchlist";
 import { useSignals } from "@/hooks/useSignals";
 import type { UserSignalItem } from "@/api/signals";
@@ -22,7 +23,10 @@ export default function Watchlist() {
 
   return (
     <div className="space-y-6 max-w-4xl">
-      <h1 className="text-2xl font-bold">My Watchlist</h1>
+      <div className="flex items-center justify-between gap-4">
+        <h1 className="text-2xl font-bold">My Watchlist</h1>
+        <AddStockDialog />
+      </div>
 
       {isLoading && (
         <div className="space-y-2">
@@ -39,7 +43,9 @@ export default function Watchlist() {
       {!isLoading && !isError && watchlist?.length === 0 && (
         <div className="flex flex-col items-center justify-center py-20 text-muted-foreground gap-3">
           <Eye className="h-12 w-12 opacity-20" />
-          <p className="text-sm">No stocks in watchlist yet. Add from the Dashboard.</p>
+          <p className="text-sm">
+            No stocks in your watchlist yet. Click "Add Stock" to start.
+          </p>
         </div>
       )}
 
@@ -48,7 +54,7 @@ export default function Watchlist() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Symbol</TableHead>
+                <TableHead>Company</TableHead>
                 <TableHead className="hidden sm:table-cell">Sector</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="hidden md:table-cell">Last Signal</TableHead>

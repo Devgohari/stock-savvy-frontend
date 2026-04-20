@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { BarChart2 } from "lucide-react";
+import { BarChart2, TrendingUp, LineChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { useRegister } from "@/hooks/useAuth";
 import { useAuthStore } from "@/store/authStore";
+import type { TradingMode } from "@/api/auth";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
@@ -21,6 +22,7 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [risk, setRisk] = useState(50);
+  const [tradingMode, setTradingMode] = useState<TradingMode>("SWING");
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   const reg = useRegister();
 
@@ -40,7 +42,7 @@ export default function Register() {
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setErrors({});
-    reg.mutate({ email, password, riskPercentage: risk }, {
+    reg.mutate({ email, password, riskPercentage: risk, tradingMode }, {
       onError: (err: any) => {
         const msg = err?.response?.data?.message;
         toast.error(msg || "Registration failed");
@@ -64,7 +66,7 @@ export default function Register() {
           <p className="text-muted-foreground text-sm">Create your account</p>
         </div>
         <div className="rounded-2xl border border-border bg-card p-6 shadow-xl space-y-5">
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-1.5">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -87,6 +89,49 @@ export default function Register() {
               />
               {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
             </div>
+
+            <div className="space-y-2">
+              <Label>Trading Style</Label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setTradingMode("SWING")}
+                  className={cn(
+                    "rounded-lg border p-3 text-left transition-colors",
+                    tradingMode === "SWING"
+                      ? "border-primary bg-primary/10"
+                      : "border-border hover:border-primary/50"
+                  )}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <TrendingUp className="h-4 w-4 text-primary" />
+                    <span className="text-sm font-semibold">Swing</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground leading-snug">
+                    Days–weeks holds<br />Daily candles
+                  </p>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setTradingMode("POSITIONAL")}
+                  className={cn(
+                    "rounded-lg border p-3 text-left transition-colors",
+                    tradingMode === "POSITIONAL"
+                      ? "border-primary bg-primary/10"
+                      : "border-border hover:border-primary/50"
+                  )}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <LineChart className="h-4 w-4 text-primary" />
+                    <span className="text-sm font-semibold">Positional</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground leading-snug">
+                    Months holds<br />Weekly candles
+                  </p>
+                </button>
+              </div>
+            </div>
+
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <Label>Risk Appetite</Label>

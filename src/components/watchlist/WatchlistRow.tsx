@@ -29,8 +29,24 @@ export function WatchlistRow({ item, lastSignal }: WatchlistRowProps) {
 
   return (
     <TableRow>
-      <TableCell className="font-mono font-bold">{item.symbol}</TableCell>
-      <TableCell className="text-muted-foreground hidden sm:table-cell">{item.sector}</TableCell>
+      <TableCell>
+        <div className="flex flex-col">
+          <span className="font-mono font-bold text-sm">{item.symbol}</span>
+          {item.companyName && (
+            <span className="text-xs text-muted-foreground line-clamp-1">
+              {item.companyName}
+            </span>
+          )}
+        </div>
+      </TableCell>
+      <TableCell className="text-muted-foreground hidden sm:table-cell">
+        <div className="flex flex-col">
+          <span className="text-sm">{item.sector}</span>
+          {item.industry && (
+            <span className="text-xs opacity-70 line-clamp-1">{item.industry}</span>
+          )}
+        </div>
+      </TableCell>
       <TableCell>
         <Badge
           variant="outline"
