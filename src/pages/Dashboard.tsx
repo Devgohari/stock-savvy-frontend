@@ -4,6 +4,7 @@ import { SectorGrid } from "@/components/sectors/SectorGrid";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Heart } from "lucide-react";
+import { PerformanceWidget } from "@/components/dashboard/PerformanceWidget";
 
 function FavoritesStrip() {
   const { data: favorites, isLoading } = useFavorites();
@@ -44,6 +45,14 @@ function FavoritesStrip() {
 export default function Dashboard() {
   return (
     <div className="space-y-8 max-w-6xl">
+      {/* Performance widget */}
+      <section className="space-y-3">
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+          Performance — last 30 days
+        </h2>
+        <PerformanceWidget />
+      </section>
+
       {/* Favorites strip */}
       <section className="space-y-3">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">

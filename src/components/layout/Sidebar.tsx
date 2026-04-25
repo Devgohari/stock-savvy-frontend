@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { BarChart2, Heart, Eye, Bell, Settings } from "lucide-react";
+import { BarChart2, Heart, Eye, Bell, Settings, Target } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -7,6 +7,7 @@ const links = [
   { to: "/favorites", label: "Favorites", icon: Heart },
   { to: "/watchlist", label: "Watchlist", icon: Eye },
   { to: "/signals", label: "Signals", icon: Bell },
+  { to: "/accuracy", label: "Accuracy", icon: Target },
   { to: "/settings", label: "Settings", icon: Settings },
 ];
 

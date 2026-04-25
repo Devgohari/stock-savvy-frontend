@@ -11,6 +11,7 @@ import Register from "./pages/Register";
 import Favorites from "./pages/Favorites";
 import Watchlist from "./pages/Watchlist";
 import Signals from "./pages/Signals";
+import AccuracyTest from "./pages/AccuracyTest";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
@@ -55,6 +56,7 @@ const App = () => (
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/watchlist" element={<Watchlist />} />
             <Route path="/signals" element={<Signals />} />
+            <Route path="/accuracy" element={<AccuracyTest />} />
             <Route path="/settings" element={<Settings />} />
           </Route>
 

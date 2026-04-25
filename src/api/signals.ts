@@ -35,6 +35,25 @@ export interface SignalHistoryFilters {
   decision?: string;
 }
 
+export interface SignalStats {
+  windowDays: number;
+  totalSignals: number;
+  openSignals: number;
+  closedSignals: number;
+  wins: number;
+  losses: number;
+  winRate: number;
+  avgReturnPct: number;
+  alertsSent: number;
+}
+
+export const getSignalStats = async (days = 30): Promise<SignalStats> => {
+  const { data } = await api.get<SignalStats>("/signals/stats", {
+    params: { days },
+  });
+  return data;
+};
+
 export const getSignalHistory = async (filters: SignalHistoryFilters = {}): Promise<SignalHistoryResponse> => {
   const { data } = await api.get<SignalHistoryResponse>("/signals/history", {
     params: {
